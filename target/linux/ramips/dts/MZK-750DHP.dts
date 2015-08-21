@@ -97,7 +97,7 @@
 		s1 {
 			label = "reset";
 			gpios = <&gpio0 1 1>;
-			linux,code = <0x100>;
+			linux,code = <0x198>;
 		};
 		s2 {
 			label = "wps";
