@@ -7,7 +7,7 @@
 	model = "Microduino MicroWRT";
 
 	chosen {
-		bootargs = "console=ttyS0,115200";
+		bootargs = "console=ttyS1,115200";
 	};
 
 	palmbus@10000000 {
@@ -54,6 +54,23 @@
 				};
 			};
 		};
+		i2c@900 {
+            		compatible = "ralink,mt7620n-i2c", "ralink,rt2880-i2c";
+            		reg = <0x900 0x100>;
+                        resets = <&rstctrl 16>;
+            		reset-names = "i2c";
+            		#address-cells = <1>;
+            		#size-cells = <0>;
+            		pinctrl-names = "default";
+            		pinctrl-0 = <&i2c_pins>;
+            		status = "okay";
+        	};
+
+                uart@500 {
+			pinctrl-names = "default";
+			pinctrl-0 = <&uartf_gpio_pins>;
+			status = "okay";
+                };
 	};
 
 	ehci@101c0000 {
@@ -75,6 +92,10 @@
 		ralink,port-map = "llllw";
 	};
 
+	gsw@10110000 {
+		ralink,port4 = "ephy";
+	};
+
 	wmac@10180000 {
 		ralink,mtd-eeprom = <&factory 0>;
 	};
@@ -85,6 +106,10 @@
 				ralink,group = "wled", "i2c", "wdt", "uartf";
 				ralink,function = "gpio";
 			};
+			i2c_pins{
+                                ralink,group = "i2c";
+                                ralink,function = "i2c";
+			};	
 		};
 	};
 
